@@ -44,8 +44,6 @@ export default class RNPickerSelect extends PureComponent {
         hideDoneBar: PropTypes.bool, // deprecated
         doneText: PropTypes.string,
         onDonePress: PropTypes.func,
-        onUpArrow: PropTypes.func,
-        onDownArrow: PropTypes.func,
         onOpen: PropTypes.func,
         onClose: PropTypes.func,
 
@@ -79,8 +77,6 @@ export default class RNPickerSelect extends PureComponent {
         hideDoneBar: false, // deprecated
         doneText: 'Done',
         onDonePress: null,
-        onUpArrow: null,
-        onDownArrow: null,
         onOpen: null,
         onClose: null,
         modalProps: {},
@@ -164,26 +160,13 @@ export default class RNPickerSelect extends PureComponent {
             orientation: 'portrait',
         };
 
-        this.onUpArrow = this.onUpArrow.bind(this);
-        this.onDownArrow = this.onDownArrow.bind(this);
+
         this.onValueChange = this.onValueChange.bind(this);
         this.onOrientationChange = this.onOrientationChange.bind(this);
         this.setInputRef = this.setInputRef.bind(this);
         this.togglePicker = this.togglePicker.bind(this);
         this.triggerDoneCallback = this.triggerDoneCallback.bind(this);
         this.renderInputAccessoryView = this.renderInputAccessoryView.bind(this);
-    }
-
-    onUpArrow() {
-        const { onUpArrow } = this.props;
-
-        this.togglePicker(false, onUpArrow);
-    }
-
-    onDownArrow() {
-        const { onDownArrow } = this.props;
-
-        this.togglePicker(false, onDownArrow);
     }
 
     onValueChange(value, index) {
@@ -289,8 +272,6 @@ export default class RNPickerSelect extends PureComponent {
             InputAccessoryView,
             doneText,
             hideDoneBar,
-            onUpArrow,
-            onDownArrow,
             style,
         } = this.props;
 
@@ -310,8 +291,6 @@ export default class RNPickerSelect extends PureComponent {
             >
                 <View style={[defaultStyles.chevronContainer, style.chevronContainer]}>
                     <TouchableOpacity
-                        activeOpacity={onUpArrow ? 0.5 : 1}
-                        onPress={onUpArrow ? this.onUpArrow : null}
                     >
                         <View
                             style={[
@@ -319,13 +298,10 @@ export default class RNPickerSelect extends PureComponent {
                                 style.chevron,
                                 defaultStyles.chevronUp,
                                 style.chevronUp,
-                                onUpArrow ? [defaultStyles.chevronActive, style.chevronActive] : {},
                             ]}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        activeOpacity={onDownArrow ? 0.5 : 1}
-                        onPress={onDownArrow ? this.onDownArrow : null}
                     >
                         <View
                             style={[
@@ -333,7 +309,6 @@ export default class RNPickerSelect extends PureComponent {
                                 style.chevron,
                                 defaultStyles.chevronDown,
                                 style.chevronDown,
-                                onDownArrow
                                     ? [defaultStyles.chevronActive, style.chevronActive]
                                     : {},
                             ]}
